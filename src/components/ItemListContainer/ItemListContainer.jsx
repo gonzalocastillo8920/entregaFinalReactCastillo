@@ -1,36 +1,53 @@
 import { useParams } from "react-router-dom";
-import { getProducts, getProductsByCategory } from "../../asyncMock";
 import ItemList from "../ItemList/ItemList";
 import { useState, useEffect } from "react";
+import { useNotification } from "../../context/NotificationContext"
 
-const ItemListContainer = ({ greetings }) => {
+
+import { db } from "../../services/firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+
+function ItemListContainer ({ greetings }) {
     const [products, setProducts] = useState([]);
-    const { category } = useParams()
+    const [loading, setLoading] = useState(true);
+    const { categoryId } = useParams();
+    const {setNotification} = useNotification();
 
     useEffect(() => {
-        if (!category) {
-            getProducts()
-                .then((res) => {
-                    setProducts(res)
-                })
-                .catch((err) => console.log(err))
-        } else {
-            getProductsByCategory(category)
-                .then((res) => {
-                    setProducts(res)
-                })
-                .catch((err) => console.log(err))
-        }
+        setLoading(true)
+        const collectionRef = categoryId
+        ? query(collection(db, "products"), where("category", "==", categoryId))
+        : collection(db, "products"); 
 
-    }, [category])
+        getDocs(collectionRef)
+            .then((querySnapshot) => {
+            const products = querySnapshot.docs.map((doc) =>{
+                return {id: doc.id, ...doc.data()}
+            })
+            setProducts(products)
+        })
+        .catch(() => {
+            setNotification("danger", `No es posible cargar los productos`);
+        })
+        .finally(() => {
+            setLoading(false);
+        })
+    }, [categoryId])
 
+    if(loading) {
+        return (
+            <h3 style={{color: "white", backgroundColor: "#0d8515", textAlign: "center"}}>
+                Cargando Productos...
+            </h3>
+        );
+    }
+    
     return (
         <>
-            <h1 className="text-center">{greetings}</h1>
+            <h2 className="text-center">{greetings}</h2>
             <ItemList products={products} />
         </>
     )
 }
-
 
 export default ItemListContainer

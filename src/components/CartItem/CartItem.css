@@ -1,0 +1,11 @@
+.CardCartItem {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    padding: 20px;
+    margin: 30px;
+    font-size: 16px;
+    background-color: #cdba98;
+    border: 1px solid #000000;
+    border-radius: 10px;
+}
