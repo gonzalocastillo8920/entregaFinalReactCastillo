@@ -31,7 +31,7 @@ const products = [
     name: "Calza deportiva Adidas",
     price: 2000,
     category: "damas",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTafPh9ulmNyEtEdExrs3MdrquhrPCzeTN_LkmzFXOEf6RSGo4BsAU-gY18KsFJjZtzR3Q&usqp=CAU",
+    img: "https://www.tuproducto.com.uy/imgs/productos/productos31_9674.jpg",
     stock: 6,
     description: "Calza deportiva Adidas para dama.",
   },
@@ -51,7 +51,7 @@ const products = [
     category: "damas",
     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKYVJTDG13EHgPHNLPWEWf1bwNZIocdze40w&usqp=CAU",
     stock: 6,
-    description: "Campiones de dama marca Puma deportivos.",
+    description: "Championes de dama marca Puma deportivos.",
   },
   {
     id: "7",
