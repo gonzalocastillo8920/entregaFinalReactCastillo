@@ -2,7 +2,6 @@ import { useCart } from "../../hooks/useCart"
 import CartItem from "../CartItem/CartItem";
 import { Link } from "react-router-dom";
 
-
 const Cart = () => {
     const {cart, totalPrice, totalQuantity, clearCart} = useCart();
     const total = totalPrice;
